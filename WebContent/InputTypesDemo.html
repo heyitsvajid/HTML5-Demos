@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register for Workshop</title>
+</head>
+<body>
+	<form>
+		<h1>Overcoming Cultural Barriers in the US Interview Workshop</h1>
+		<fieldset>
+			<legend>
+				<h3>Personal details</h3>
+			</legend>
+			<br> <br>
+			<div>
+				<label>First Name <input placeholder="First name"
+					required="" autofocus="" type="text">
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>Last Name <input placeholder="Last name" required=""
+					autofocus="" type="text">
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>Date of Birth <input required="" type="date">
+				</label>
+			</div>
+			<br>
+			<div class="gender">
+				<label>Gender</label> <input id="male" type="radio"> <label>Male</label>
+				<input type="radio"> <label>Female</label>
+			</div>
+			<br>
+			<div>
+				<label>Email <input placeholder="abc@abc.com" required=""
+					type="email">
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>LinkedIn URL <input placeholder="http://linkedin.com"
+					type="url">
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>Telephone <input required="" type="tel">
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>Country <input list="country" required="" type="text">
+					<datalist id="country">
+						<option label="India" value="India"></option>
+						<option label="China" value="China"></option>
+					</datalist>
+				</label>
+			</div>
+			<br>
+			<div>
+				<label>English Proficiency (1 low - 100 high) <input min="1"
+					max="100" value="0" type="range"> <output name="output"
+						onforminput="value=a.value">0</output>
+				</label>
+			</div>
+			<br>
+		</fieldset>
+	</form>
+
+</body>
+</html>

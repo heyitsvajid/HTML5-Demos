@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geolocation Demo</title>
+<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+}
+</style>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script>
+	var x = document.getElementById("error");
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		} else {
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		}
+	}
+
+	function showPosition(position) {
+		var lat = position.coords.latitude;
+		var lon = position.coords.longitude;
+
+		var div = document.getElementById("location");
+		div.innerHTML = "You are at Latitude: " + lat + ", Longitude: " + lon;
+
+		var latlon = new google.maps.LatLng(lat, lon)
+		var mapholder = document.getElementById('mapholder')
+		mapholder.style.height = '250px';
+		mapholder.style.width = '500px';
+
+		var myOptions = {
+			center : latlon,
+			zoom : 14,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			mapTypeControl : false,
+			navigationControlOptions : {
+				style : google.maps.NavigationControlStyle.SMALL
+			}
+		}
+
+		var map = new google.maps.Map(document.getElementById("mapholder"),
+				myOptions);
+		var marker = new google.maps.Marker({
+			position : latlon,
+			map : map,
+			title : "You are here!"
+		});
+
+		var sjsuCoords = {
+			latitude : 37.3352,
+			longitude : -121.88099
+		};
+
+		var km = computeDistance(position.coords, sjsuCoords);
+		var div = document.getElementById("distance");
+		distance.innerHTML = "You are " + km
+				+ " km from the San Jose State University";
+		showMap(position.coords);
+	}
+
+	function computeDistance(startCoords, destCoords) {
+		var startLatRads = degreesToRadians(startCoords.latitude);
+		var startLongRads = degreesToRadians(startCoords.longitude);
+		var destLatRads = degreesToRadians(destCoords.latitude);
+		var destLongRads = degreesToRadians(destCoords.longitude);
+
+		//Taken help online for calculating distance using coordinates.
+		var Radius = 6371; // radius of the Earth in km
+		var distance = Math.acos(Math.sin(startLatRads) * Math.sin(destLatRads)
+				+ Math.cos(startLatRads) * Math.cos(destLatRads)
+				* Math.cos(startLongRads - destLongRads))
+				* Radius;
+		return distance;
+	}
+	function degreesToRadians(degrees) {
+		var radians = (degrees * Math.PI) / 180;
+		return radians;
+	}
+</script>
+
+</head>
+
+<body>
+
+	<h1>Know Your Distance from San Jose State University</h1>
+
+	<button onclick="getLocation()">Get My Distance!</button>
+
+
+	<div id="error"></div>
+	<h2>
+		<div id="location"></div>
+	</h2>
+	<h2>
+		<div id="distance"></div>
+	</h2>
+	<div id="mapholder"></div>
+
+
+</body>
+</html>

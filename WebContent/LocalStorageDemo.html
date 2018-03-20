@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Local Storage Demo</title>
+<script type="text/javascript">
+	window.onload = init;
+
+	function init() {
+		var button = document.getElementById("add_note");
+		button.onclick = createNote;
+
+		for (var i = 0; i < localStorage.length; i++) {
+			var key = localStorage.key(i);
+			if (key.substring(0, 6) == "sticky") {
+				var value = localStorage.getItem(key);
+				addNoteToDOM(value);
+			}
+		}
+	}
+	function addNoteToDOM(value) {
+		var stickies = document.getElementById("listOfNote");
+		var sticky = document.createElement("li");
+		var span = document.createElement("span");
+		var cb = document.createElement('input');
+		cb.type = 'checkbox';
+		span.innerHTML = value + "  ";
+		sticky.appendChild(span)
+		sticky.appendChild(cb);
+		stickies.appendChild(sticky);
+	}
+
+	function createNote() {
+		var value = document.getElementById("sticky_note").value;
+		var key = "sticky_" + localStorage.length;
+		localStorage.setItem(key, value);
+		addNoteToDOM(value);
+	}
+</script>
+<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+}
+</style>
+
+</head>
+<body>
+	<form>
+		<input type="text" id="sticky_note"> <input type="button"
+			id="add_note" value="Add Sticky Note">
+
+		<h1>Tasks For Today</h1>
+		<ul id="listOfNote">
+	</form>
+
+</body>
+</html>
